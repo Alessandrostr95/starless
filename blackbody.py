@@ -2,6 +2,7 @@
 
 import numpy as np
 import scipy.misc as spm
+import imageio
 
 #accretion disk log temperature profile (R^{-3/4})
 LOGSHIFT = 0.823959216501 # 3/4 log(3)
@@ -25,7 +26,8 @@ def intensity(T):
     return 1./( np.exp(29622.4 / T.clip(1.)) - 1)
 
 
-ramp = spm.imread('data/colourtemp.jpg')[0,:,:]/255.
+# ramp = spm.imread('data/colourtemp.jpg')[0,:,:]/255.
+ramp = imageio.imread('data/colourtemp.jpg')[0,:,:]/255.
 rampsz = ramp.shape[0]
 
 
