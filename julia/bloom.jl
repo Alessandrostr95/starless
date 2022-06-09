@@ -1,4 +1,5 @@
 using SpecialFunctions
+using DSP
 
 # "airy disk" function (actually approximate, and a rescaling, but it's ok)
 # see https://en.wikipedia.org/wiki/Bessel_function#Bessel_functions_of_the_first_kind:_J%CE%B1
@@ -31,8 +32,8 @@ function airy_convolve(array, radius::Float64, kernel_radius=25)
 
     out = zeros(size(array)[1], 3, size(array)[2])
     for i in range(3)
-        out[:, i, :] = convolve2d(array[:, i, :], kernel[:, i, :], mode='same', boundary='symm')
-    end 
+        out[:, i, :] = conv(array[:, i, :], kernel[:, i, :])
+    end
     return out
 end
 
@@ -45,7 +46,7 @@ function meshgrid(x,y)
     Y = zeros(ny, nx)
 
     for j=1:nx
-        for ix=1:ny
+        for i=1:ny
             X[i, j]= x[j]
             Y[i, j]= y[i]
         end
